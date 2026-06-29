@@ -1,32 +1,109 @@
-# React + TypeScript + Vite
+# AquaTarifa — Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Interface web para gerenciamento de tarifas de água. Permite criar tabelas tarifárias com categorias e faixas de consumo progressivo, além de calcular o valor a pagar com base no consumo informado.
 
-Currently, two official plugins are available:
+**Backend (API):** https://tarifa-agua.onrender.com  
+**Frontend (produção):** em breve no Vercel
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+---
 
-## React Compiler
+## Funcionalidades
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- Listar e excluir tabelas tarifárias cadastradas
+- Criar tabelas com categorias (residencial, comercial, industrial etc.) e faixas de preço progressivo
+- Calcular o valor da tarifa com base na categoria e consumo (m³)
 
-## Expanding the Oxlint configuration
+## Tecnologias
 
-If you are developing a production application, we recommend enabling type-aware lint rules by installing `oxlint-tsgolint` and editing `.oxlintrc.json`:
+- React 19 + TypeScript
+- Vite 8
+- Tailwind CSS 4
+- Lucide React (ícones)
 
-```json
-{
-  "$schema": "./node_modules/oxlint/configuration_schema.json",
-  "plugins": ["react", "typescript", "oxc"],
-  "options": {
-    "typeAware": true
-  },
-  "rules": {
-    "react/rules-of-hooks": "error",
-    "react/only-export-components": ["warn", { "allowConstantExport": true }]
-  }
-}
+---
+
+## Rodando localmente
+
+### Pré-requisitos
+
+- Node.js 18+
+- npm
+
+### 1. Clone o repositório
+
+```bash
+git clone <url-do-repositorio>
+cd tarifa-agua-front
 ```
 
-See the [Oxlint rules documentation](https://oxc.rs/docs/guide/usage/linter/rules) for the full list of rules and categories.
+### 2. Instale as dependências
+
+```bash
+npm install
+```
+
+### 3. Configure as variáveis de ambiente
+
+Crie um arquivo `.env.local` na raiz do projeto:
+
+```env
+VITE_API_URL=https://tarifa-agua.onrender.com
+```
+
+> Se quiser apontar para um backend local, use `VITE_API_URL=http://localhost:8080`.
+
+### 4. Inicie o servidor de desenvolvimento
+
+```bash
+npm run dev
+```
+
+Acesse em: http://localhost:5173
+
+---
+
+## Build de produção
+
+```bash
+npm run build
+```
+
+Os arquivos ficam em `dist/`.
+
+---
+
+## Deploy no Vercel
+
+### Via interface web (recomendado)
+
+1. Acesse [vercel.com](https://vercel.com) e faça login
+2. Clique em **Add New → Project**
+3. Importe este repositório do GitHub
+4. Na tela de configuração, expanda **Environment Variables** e adicione:
+
+| Nome | Valor |
+|------|-------|
+| `VITE_API_URL` | `https://tarifa-agua.onrender.com` |
+
+5. Clique em **Deploy**
+
+O Vercel detecta automaticamente que é um projeto Vite. As configurações de build padrão já são corretas:
+- **Build Command:** `npm run build`
+- **Output Directory:** `dist`
+
+### Via CLI do Vercel
+
+```bash
+npm i -g vercel
+vercel
+```
+
+Quando solicitado, defina a variável de ambiente `VITE_API_URL=https://tarifa-agua.onrender.com`.
+
+---
+
+## Variáveis de ambiente
+
+| Variável | Obrigatória | Descrição |
+|----------|-------------|-----------|
+| `VITE_API_URL` | Não | URL base da API. Padrão: `http://localhost:8080` |
